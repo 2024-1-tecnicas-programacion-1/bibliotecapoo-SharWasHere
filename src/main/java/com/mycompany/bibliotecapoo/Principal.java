@@ -11,73 +11,70 @@ public class Principal {
         Scanner scanner = new Scanner(System.in);
 
         int opcion;
-        do {
+        
+        while(true) {
             System.out.println("----- Menú -----");
             System.out.println("1. Ingresar un nuevo libro");
             System.out.println("2. Mostrar todos los libros");
             System.out.println("3. Buscar un libro");
             System.out.println("4. Marcar un libro como no leído");
             System.out.println("5. Mostrar libros no leídos");
+            System.out.println("6. Salir");
             opcion = scanner.nextInt();
 
             switch (opcion) {
                 case 1:
-                    ingresarLibro(biblioteca, scanner);
+                    System.out.println("Ingresar el titulo del libro");
+                    String tituloUsuario=scanner.nextLine();
+                    
+                    System.out.println("Ingresar el autor del libro");
+                    String autorUsuario=scanner.nextLine();
+                    
+                    System.out.println("Ingresar el año de publicación del libro");
+                    int anioUsuario=scanner.nextInt();
+                    
+                    System.out.println("Ingresar el genero del libro");
+                    String generoUsuario=scanner.nextLine();
+                    
+                    Libro libroRegistrado= new Libro(tituloUsuario, autorUsuario, anioUsuario,generoUsuario);
+                    
+                    Biblioteca reLibro = new Biblioteca();
+                    reLibro.registrarLibro(libroRegistrado);
+
                     break;
+                    
                 case 2:
-                    biblioteca.mostrarLibros();
+                    System.out.println("Libros disponibles");
+                    Biblioteca mosLibros= new Biblioteca();
+                    mosLibros.mostrarLibros();
+                    
                     break;
                 case 3:
-                    buscarLibro(biblioteca, scanner);
+                    System.out.println("escriba el libro, o el , o el  autor, o el genero a buscar");
+                    String palabraBuscada=scanner.nextLine();
+                    
+                    Biblioteca busLibro= new Biblioteca();
+                    busLibro.buscarLibro(palabraBuscada);
+
                     break;
                 case 4:
-                    marcarLibroNoLeido(biblioteca, scanner);
+                    System.out.println("Escriba el libro para marcarlo como leído");
+                    Libro libroLeido = new Libro();
+                    libroLeido.marcarLeido();
+                    
                     break;
                 case 5:
-                    biblioteca.mostrarLibrosNoLeidos();
-                    break;
+                    System.out.println("Libros no leídos");
+                    
+                    Biblioteca libNoLeidos=new Biblioteca();
+                    libNoLeidos.mostrarLibrosNoLeidos();
+                    
+                    System.exit(0);
+
+                    default;
+                    System.out.println("Escriba el libro para marcarlo como leído");   
             }
-        } while (opcion != 6);
+        } 
 
-    }
-/**
-     * Complejidad temporal: O(1) Tiempo constante
-     */
-    public static void ingresarLibro(Biblioteca biblioteca, Scanner scanner) {
-        scanner.nextLine();
-
-        System.out.println("Ingrese el título del libro:");
-        String titulo = scanner.nextLine();
-        System.out.println("Ingrese el autor del libro:");
-        String autor = scanner.nextLine();
-        System.out.println("Ingrese el año de publicación del libro:");
-        int anioPublicacion = scanner.nextInt();
-        System.out.println("Ingrese el género del libro:");
-        scanner.nextLine(); // Limpiar el buffer de entrada
-        String genero = scanner.nextLine();
-
-        Libro nuevoLibro = new Libro(titulo, autor, anioPublicacion, genero);
-        biblioteca.registrarLibro(nuevoLibro);
-        System.out.println("El libro ha sido ingresado correctamente.");
-    }
-/**
-     * Complejidad temporal: O(1) Tiempo constante
-     */
-    public static void buscarLibro(Biblioteca biblioteca, Scanner scanner) {
-        scanner.nextLine();
-
-        System.out.println("Ingrese el título, autor o género del libro a buscar:");
-        String palabraBusqueda = scanner.nextLine();
-        biblioteca.buscarLibro(palabraBusqueda);
-    }
-/**
-     * Complejidad temporal: O(1) Tiempo constante
-     */
-    public static void marcarLibroNoLeido(Biblioteca biblioteca, Scanner scanner) {
-        scanner.nextLine();
-
-        System.out.println("Ingrese el título del libro que desea marcar como no leído:");
-        String tituloLibro = scanner.nextLine();
-        biblioteca.marcarLibroNoLeido(tituloLibro);
     }
 }
